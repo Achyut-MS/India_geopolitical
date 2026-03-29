@@ -1,0 +1,326 @@
+[
+  {
+    "id": "an", "name": "Andhra Pradesh", "name_hi": "आंध्र प्रदेश", "capital": "Amaravati", "type": "state",
+    "cm_name": "N. Chandrababu Naidu", "cm_party": "TDP", "governor_name": "S. Abdul Nazeer",
+    "ruling_party": "TDP", "coalition_partners": ["BJP", "JSP"],
+    "total_assembly_seats": 175, "ruling_seats": 164, "opposition_seats": 11, "other_seats": 0,
+    "last_election_year": 2024, "next_election_due": 2029,
+    "heat_score": 30, "heat_colour": "green",
+    "centroid": [79.74, 15.91], "geo_name": "Andhra Pradesh"
+  },
+  {
+    "id": "ar", "name": "Arunachal Pradesh", "name_hi": "अरुणाचल प्रदेश", "capital": "Itanagar", "type": "state",
+    "cm_name": "Pema Khandu", "cm_party": "BJP", "governor_name": "Lt Gen K T Parnaik",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 60, "ruling_seats": 46, "opposition_seats": 5, "other_seats": 9,
+    "last_election_year": 2024, "next_election_due": 2029,
+    "heat_score": 25, "heat_colour": "green",
+    "centroid": [94.72, 28.21], "geo_name": "Arunachal Pradesh"
+  },
+  {
+    "id": "as", "name": "Assam", "name_hi": "असम", "capital": "Dispur", "type": "state",
+    "cm_name": "Himanta Biswa Sarma", "cm_party": "BJP", "governor_name": "Lakshman Prasad Acharya",
+    "ruling_party": "BJP", "coalition_partners": ["AGP", "UPPL"],
+    "total_assembly_seats": 126, "ruling_seats": 75, "opposition_seats": 42, "other_seats": 9,
+    "last_election_year": 2021, "next_election_due": 2026,
+    "heat_score": 45, "heat_colour": "amber",
+    "centroid": [92.93, 26.20], "geo_name": "Assam"
+  },
+  {
+    "id": "br", "name": "Bihar", "name_hi": "बिहार", "capital": "Patna", "type": "state",
+    "cm_name": "Nitish Kumar", "cm_party": "JD(U)", "governor_name": "Arif Mohammad Khan",
+    "ruling_party": "JD(U)", "coalition_partners": ["BJP", "HAM", "LJPR"],
+    "total_assembly_seats": 243, "ruling_seats": 128, "opposition_seats": 110, "other_seats": 5,
+    "last_election_year": 2020, "next_election_due": 2025,
+    "heat_score": 55, "heat_colour": "amber",
+    "centroid": [85.31, 25.09], "geo_name": "Bihar"
+  },
+  {
+    "id": "ct", "name": "Chhattisgarh", "name_hi": "छत्तीसगढ़", "capital": "Raipur", "type": "state",
+    "cm_name": "Vishnu Deo Sai", "cm_party": "BJP", "governor_name": "Ramen Deka",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 90, "ruling_seats": 54, "opposition_seats": 35, "other_seats": 1,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 35, "heat_colour": "green",
+    "centroid": [81.86, 21.27], "geo_name": "Chhattisgarh"
+  },
+  {
+    "id": "ga", "name": "Goa", "name_hi": "गोवा", "capital": "Panaji", "type": "state",
+    "cm_name": "Pramod Sawant", "cm_party": "BJP", "governor_name": "P.S. Sreedharan Pillai",
+    "ruling_party": "BJP", "coalition_partners": ["MGP"],
+    "total_assembly_seats": 40, "ruling_seats": 25, "opposition_seats": 11, "other_seats": 4,
+    "last_election_year": 2022, "next_election_due": 2027,
+    "heat_score": 28, "heat_colour": "green",
+    "centroid": [74.12, 15.29], "geo_name": "Goa"
+  },
+  {
+    "id": "gj", "name": "Gujarat", "name_hi": "गुजरात", "capital": "Gandhinagar", "type": "state",
+    "cm_name": "Bhupendra Patel", "cm_party": "BJP", "governor_name": "Acharya Devvrat",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 182, "ruling_seats": 156, "opposition_seats": 17, "other_seats": 9,
+    "last_election_year": 2022, "next_election_due": 2027,
+    "heat_score": 20, "heat_colour": "green",
+    "centroid": [71.19, 22.25], "geo_name": "Gujarat"
+  },
+  {
+    "id": "hr", "name": "Haryana", "name_hi": "हरियाणा", "capital": "Chandigarh", "type": "state",
+    "cm_name": "Nayab Singh Saini", "cm_party": "BJP", "governor_name": "Bandaru Dattatreya",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 90, "ruling_seats": 48, "opposition_seats": 37, "other_seats": 5,
+    "last_election_year": 2024, "next_election_due": 2029,
+    "heat_score": 40, "heat_colour": "amber",
+    "centroid": [76.08, 29.05], "geo_name": "Haryana"
+  },
+  {
+    "id": "hp", "name": "Himachal Pradesh", "name_hi": "हिमाचल प्रदेश", "capital": "Shimla", "type": "state",
+    "cm_name": "Sukhvinder Singh Sukhu", "cm_party": "INC", "governor_name": "Shiv Pratap Shukla",
+    "ruling_party": "INC", "coalition_partners": [],
+    "total_assembly_seats": 68, "ruling_seats": 40, "opposition_seats": 25, "other_seats": 3,
+    "last_election_year": 2022, "next_election_due": 2027,
+    "heat_score": 48, "heat_colour": "amber",
+    "centroid": [77.17, 31.10], "geo_name": "Himachal Pradesh"
+  },
+  {
+    "id": "jh", "name": "Jharkhand", "name_hi": "झारखंड", "capital": "Ranchi", "type": "state",
+    "cm_name": "Hemant Soren", "cm_party": "JMM", "governor_name": "Santosh Kumar Gangwar",
+    "ruling_party": "JMM", "coalition_partners": ["INC", "RJD"],
+    "total_assembly_seats": 81, "ruling_seats": 56, "opposition_seats": 24, "other_seats": 1,
+    "last_election_year": 2024, "next_election_due": 2029,
+    "heat_score": 50, "heat_colour": "amber",
+    "centroid": [85.27, 23.61], "geo_name": "Jharkhand"
+  },
+  {
+    "id": "ka", "name": "Karnataka", "name_hi": "कर्नाटक", "capital": "Bengaluru", "type": "state",
+    "cm_name": "Siddaramaiah", "cm_party": "INC", "governor_name": "Thawar Chand Gehlot",
+    "ruling_party": "INC", "coalition_partners": [],
+    "total_assembly_seats": 224, "ruling_seats": 136, "opposition_seats": 79, "other_seats": 9,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 42, "heat_colour": "amber",
+    "centroid": [75.71, 15.31], "geo_name": "Karnataka"
+  },
+  {
+    "id": "kl", "name": "Kerala", "name_hi": "केरल", "capital": "Thiruvananthapuram", "type": "state",
+    "cm_name": "Pinarayi Vijayan", "cm_party": "CPI(M)", "governor_name": "Rajendra Vishwanath Arlekar",
+    "ruling_party": "CPI(M)", "coalition_partners": ["CPI", "NCP", "JD(S)"],
+    "total_assembly_seats": 140, "ruling_seats": 99, "opposition_seats": 41, "other_seats": 0,
+    "last_election_year": 2021, "next_election_due": 2026,
+    "heat_score": 38, "heat_colour": "amber",
+    "centroid": [76.27, 10.85], "geo_name": "Kerala"
+  },
+  {
+    "id": "mp", "name": "Madhya Pradesh", "name_hi": "मध्य प्रदेश", "capital": "Bhopal", "type": "state",
+    "cm_name": "Mohan Yadav", "cm_party": "BJP", "governor_name": "Mangubhai C. Patel",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 230, "ruling_seats": 163, "opposition_seats": 66, "other_seats": 1,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 30, "heat_colour": "green",
+    "centroid": [78.65, 23.47], "geo_name": "Madhya Pradesh"
+  },
+  {
+    "id": "mh", "name": "Maharashtra", "name_hi": "महाराष्ट्र", "capital": "Mumbai", "type": "state",
+    "cm_name": "Devendra Fadnavis", "cm_party": "BJP", "governor_name": "C. P. Radhakrishnan",
+    "ruling_party": "BJP", "coalition_partners": ["NCP-AP", "SS-ES"],
+    "total_assembly_seats": 288, "ruling_seats": 230, "opposition_seats": 54, "other_seats": 4,
+    "last_election_year": 2024, "next_election_due": 2029,
+    "heat_score": 44, "heat_colour": "amber",
+    "centroid": [75.71, 19.75], "geo_name": "Maharashtra"
+  },
+  {
+    "id": "mn", "name": "Manipur", "name_hi": "मणिपुर", "capital": "Imphal", "type": "state",
+    "cm_name": "N. Biren Singh", "cm_party": "BJP", "governor_name": "Lakshman Prasad Acharya",
+    "ruling_party": "BJP", "coalition_partners": ["NPP", "NPF"],
+    "total_assembly_seats": 60, "ruling_seats": 37, "opposition_seats": 8, "other_seats": 15,
+    "last_election_year": 2022, "next_election_due": 2027,
+    "heat_score": 78, "heat_colour": "red",
+    "centroid": [93.90, 24.66], "geo_name": "Manipur"
+  },
+  {
+    "id": "ml", "name": "Meghalaya", "name_hi": "मेघालय", "capital": "Shillong", "type": "state",
+    "cm_name": "Conrad K. Sangma", "cm_party": "NPP", "governor_name": "C. H. Vijayashankar",
+    "ruling_party": "NPP", "coalition_partners": ["BJP", "UDP", "HSPDP"],
+    "total_assembly_seats": 60, "ruling_seats": 32, "opposition_seats": 18, "other_seats": 10,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 32, "heat_colour": "green",
+    "centroid": [91.36, 25.46], "geo_name": "Meghalaya"
+  },
+  {
+    "id": "mz", "name": "Mizoram", "name_hi": "मिज़ोरम", "capital": "Aizawl", "type": "state",
+    "cm_name": "Lalduhoma", "cm_party": "ZPM", "governor_name": "Gen. (Dr.) Vijay Kumar Singh",
+    "ruling_party": "ZPM", "coalition_partners": [],
+    "total_assembly_seats": 40, "ruling_seats": 27, "opposition_seats": 8, "other_seats": 5,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 22, "heat_colour": "green",
+    "centroid": [92.93, 23.16], "geo_name": "Mizoram"
+  },
+  {
+    "id": "nl", "name": "Nagaland", "name_hi": "नागालैंड", "capital": "Kohima", "type": "state",
+    "cm_name": "Neiphiu Rio", "cm_party": "NDPP", "governor_name": "La Ganesan",
+    "ruling_party": "NDPP", "coalition_partners": ["BJP"],
+    "total_assembly_seats": 60, "ruling_seats": 37, "opposition_seats": 5, "other_seats": 18,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 35, "heat_colour": "green",
+    "centroid": [94.56, 26.15], "geo_name": "Nagaland"
+  },
+  {
+    "id": "or", "name": "Odisha", "name_hi": "ओडिशा", "capital": "Bhubaneswar", "type": "state",
+    "cm_name": "Mohan Charan Majhi", "cm_party": "BJP", "governor_name": "Raghubar Das",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 147, "ruling_seats": 78, "opposition_seats": 62, "other_seats": 7,
+    "last_election_year": 2024, "next_election_due": 2029,
+    "heat_score": 32, "heat_colour": "green",
+    "centroid": [85.09, 20.94], "geo_name": "Odisha"
+  },
+  {
+    "id": "pb", "name": "Punjab", "name_hi": "पंजाब", "capital": "Chandigarh", "type": "state",
+    "cm_name": "Bhagwant Mann", "cm_party": "AAP", "governor_name": "Gulab Chand Kataria",
+    "ruling_party": "AAP", "coalition_partners": [],
+    "total_assembly_seats": 117, "ruling_seats": 92, "opposition_seats": 23, "other_seats": 2,
+    "last_election_year": 2022, "next_election_due": 2027,
+    "heat_score": 42, "heat_colour": "amber",
+    "centroid": [75.34, 31.14], "geo_name": "Punjab"
+  },
+  {
+    "id": "rj", "name": "Rajasthan", "name_hi": "राजस्थान", "capital": "Jaipur", "type": "state",
+    "cm_name": "Bhajan Lal Sharma", "cm_party": "BJP", "governor_name": "Haribhau Kisanrao Bagde",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 200, "ruling_seats": 115, "opposition_seats": 69, "other_seats": 16,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 35, "heat_colour": "green",
+    "centroid": [74.21, 27.02], "geo_name": "Rajasthan"
+  },
+  {
+    "id": "sk", "name": "Sikkim", "name_hi": "सिक्किम", "capital": "Gangtok", "type": "state",
+    "cm_name": "Prem Singh Tamang", "cm_party": "SKM", "governor_name": "Om Prakash Mathur",
+    "ruling_party": "SKM", "coalition_partners": [],
+    "total_assembly_seats": 32, "ruling_seats": 31, "opposition_seats": 1, "other_seats": 0,
+    "last_election_year": 2024, "next_election_due": 2029,
+    "heat_score": 15, "heat_colour": "green",
+    "centroid": [88.51, 27.53], "geo_name": "Sikkim"
+  },
+  {
+    "id": "tn", "name": "Tamil Nadu", "name_hi": "तमिलनाडु", "capital": "Chennai", "type": "state",
+    "cm_name": "M. K. Stalin", "cm_party": "DMK", "governor_name": "R. N. Ravi",
+    "ruling_party": "DMK", "coalition_partners": ["INC", "CPI", "CPI(M)", "VCK"],
+    "total_assembly_seats": 234, "ruling_seats": 159, "opposition_seats": 66, "other_seats": 9,
+    "last_election_year": 2021, "next_election_due": 2026,
+    "heat_score": 48, "heat_colour": "amber",
+    "centroid": [78.65, 11.12], "geo_name": "Tamil Nadu"
+  },
+  {
+    "id": "tg", "name": "Telangana", "name_hi": "तेलंगाना", "capital": "Hyderabad", "type": "state",
+    "cm_name": "A. Revanth Reddy", "cm_party": "INC", "governor_name": "Jishnu Dev Varma",
+    "ruling_party": "INC", "coalition_partners": [],
+    "total_assembly_seats": 119, "ruling_seats": 64, "opposition_seats": 47, "other_seats": 8,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 40, "heat_colour": "amber",
+    "centroid": [79.01, 18.11], "geo_name": "Telangana"
+  },
+  {
+    "id": "tr", "name": "Tripura", "name_hi": "त्रिपुरा", "capital": "Agartala", "type": "state",
+    "cm_name": "Manik Saha", "cm_party": "BJP", "governor_name": "Indra Sena Reddy Nallu",
+    "ruling_party": "BJP", "coalition_partners": ["IPFT"],
+    "total_assembly_seats": 60, "ruling_seats": 33, "opposition_seats": 19, "other_seats": 8,
+    "last_election_year": 2023, "next_election_due": 2028,
+    "heat_score": 30, "heat_colour": "green",
+    "centroid": [91.98, 23.94], "geo_name": "Tripura"
+  },
+  {
+    "id": "up", "name": "Uttar Pradesh", "name_hi": "उत्तर प्रदेश", "capital": "Lucknow", "type": "state",
+    "cm_name": "Yogi Adityanath", "cm_party": "BJP", "governor_name": "Anandiben Patel",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 403, "ruling_seats": 255, "opposition_seats": 128, "other_seats": 20,
+    "last_election_year": 2022, "next_election_due": 2027,
+    "heat_score": 55, "heat_colour": "amber",
+    "centroid": [80.94, 26.84], "geo_name": "Uttar Pradesh"
+  },
+  {
+    "id": "ut", "name": "Uttarakhand", "name_hi": "उत्तराखंड", "capital": "Dehradun", "type": "state",
+    "cm_name": "Pushkar Singh Dhami", "cm_party": "BJP", "governor_name": "Lt. Gen. Gurmit Singh",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 70, "ruling_seats": 47, "opposition_seats": 19, "other_seats": 4,
+    "last_election_year": 2022, "next_election_due": 2027,
+    "heat_score": 28, "heat_colour": "green",
+    "centroid": [79.01, 30.06], "geo_name": "Uttarakhand"
+  },
+  {
+    "id": "wb", "name": "West Bengal", "name_hi": "पश्चिम बंगाल", "capital": "Kolkata", "type": "state",
+    "cm_name": "Mamata Banerjee", "cm_party": "AITC", "governor_name": "C. V. Ananda Bose",
+    "ruling_party": "AITC", "coalition_partners": [],
+    "total_assembly_seats": 294, "ruling_seats": 215, "opposition_seats": 77, "other_seats": 2,
+    "last_election_year": 2021, "next_election_due": 2026,
+    "heat_score": 58, "heat_colour": "orange",
+    "centroid": [87.85, 22.98], "geo_name": "West Bengal"
+  },
+  {
+    "id": "jk", "name": "Jammu & Kashmir", "name_hi": "जम्मू और कश्मीर", "capital": "Srinagar", "type": "ut",
+    "cm_name": "Omar Abdullah", "cm_party": "JKNC", "governor_name": "Manoj Sinha (LG)",
+    "ruling_party": "JKNC", "coalition_partners": ["INC"],
+    "total_assembly_seats": 90, "ruling_seats": 48, "opposition_seats": 32, "other_seats": 10,
+    "last_election_year": 2024, "next_election_due": 2029,
+    "heat_score": 72, "heat_colour": "purple",
+    "centroid": [74.79, 33.77], "geo_name": "Jammu and Kashmir"
+  },
+  {
+    "id": "dl", "name": "Delhi", "name_hi": "दिल्ली", "capital": "New Delhi", "type": "ut",
+    "cm_name": "Rekha Gupta", "cm_party": "BJP", "governor_name": "V. K. Saxena (LG)",
+    "ruling_party": "BJP", "coalition_partners": [],
+    "total_assembly_seats": 70, "ruling_seats": 48, "opposition_seats": 22, "other_seats": 0,
+    "last_election_year": 2025, "next_election_due": 2030,
+    "heat_score": 52, "heat_colour": "amber",
+    "centroid": [77.10, 28.70], "geo_name": "NCT of Delhi"
+  },
+  {
+    "id": "py", "name": "Puducherry", "name_hi": "पुदुचेरी", "capital": "Puducherry", "type": "ut",
+    "cm_name": "N. Rangaswamy", "cm_party": "AINRC", "governor_name": "C. P. Radhakrishnan (LG)",
+    "ruling_party": "AINRC", "coalition_partners": ["BJP"],
+    "total_assembly_seats": 33, "ruling_seats": 19, "opposition_seats": 9, "other_seats": 5,
+    "last_election_year": 2021, "next_election_due": 2026,
+    "heat_score": 25, "heat_colour": "green",
+    "centroid": [79.81, 11.93], "geo_name": "Puducherry"
+  },
+  {
+    "id": "la", "name": "Ladakh", "name_hi": "लद्दाख", "capital": "Leh", "type": "ut",
+    "cm_name": "—", "cm_party": "—", "governor_name": "B. D. Mishra (LG)",
+    "ruling_party": "—", "coalition_partners": [],
+    "total_assembly_seats": 0, "ruling_seats": 0, "opposition_seats": 0, "other_seats": 0,
+    "last_election_year": 0, "next_election_due": 0,
+    "heat_score": 65, "heat_colour": "purple",
+    "centroid": [77.57, 34.15], "geo_name": "Ladakh"
+  },
+  {
+    "id": "ch", "name": "Chandigarh", "name_hi": "चंडीगढ़", "capital": "Chandigarh", "type": "ut",
+    "cm_name": "—", "cm_party": "—", "governor_name": "Banwarilal Purohit (Admin)",
+    "ruling_party": "—", "coalition_partners": [],
+    "total_assembly_seats": 0, "ruling_seats": 0, "opposition_seats": 0, "other_seats": 0,
+    "last_election_year": 0, "next_election_due": 0,
+    "heat_score": 20, "heat_colour": "grey",
+    "centroid": [76.77, 30.73], "geo_name": "Chandigarh"
+  },
+  {
+    "id": "an_is", "name": "Andaman & Nicobar", "name_hi": "अंडमान और निकोबार", "capital": "Port Blair", "type": "ut",
+    "cm_name": "—", "cm_party": "—", "governor_name": "D. K. Joshi (LG)",
+    "ruling_party": "—", "coalition_partners": [],
+    "total_assembly_seats": 0, "ruling_seats": 0, "opposition_seats": 0, "other_seats": 0,
+    "last_election_year": 0, "next_election_due": 0,
+    "heat_score": 15, "heat_colour": "grey",
+    "centroid": [92.73, 11.74], "geo_name": "Andaman and Nicobar Islands"
+  },
+  {
+    "id": "dn", "name": "Dadra & Nagar Haveli and Daman & Diu", "name_hi": "दादरा और नगर हवेली और दमन और दीव", "capital": "Daman", "type": "ut",
+    "cm_name": "—", "cm_party": "—", "governor_name": "Praful Patel (Admin)",
+    "ruling_party": "—", "coalition_partners": [],
+    "total_assembly_seats": 0, "ruling_seats": 0, "opposition_seats": 0, "other_seats": 0,
+    "last_election_year": 0, "next_election_due": 0,
+    "heat_score": 15, "heat_colour": "grey",
+    "centroid": [73.01, 20.39], "geo_name": "Dadra and Nagar Haveli and Daman and Diu"
+  },
+  {
+    "id": "lk", "name": "Lakshadweep", "name_hi": "लक्षद्वीप", "capital": "Kavaratti", "type": "ut",
+    "cm_name": "—", "cm_party": "—", "governor_name": "Praful Patel (Admin)",
+    "ruling_party": "—", "coalition_partners": [],
+    "total_assembly_seats": 0, "ruling_seats": 0, "opposition_seats": 0, "other_seats": 0,
+    "last_election_year": 0, "next_election_due": 0,
+    "heat_score": 10, "heat_colour": "grey",
+    "centroid": [72.63, 10.56], "geo_name": "Lakshadweep"
+  }
+]
