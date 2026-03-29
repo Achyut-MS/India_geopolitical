@@ -93,6 +93,7 @@ export interface AppState {
   selectedState: State | null;
   selectedDistrict: District | null;
   zoomLevel: number;
+  fullyVisibleStateCount: number;
   activeColourMode: 'sentiment' | 'party';
   activeMapStyle: 'political' | 'satellite' | 'hybrid';
   isPanelOpen: boolean;
@@ -105,6 +106,7 @@ export interface AppState {
   selectState: (state: State | null) => void;
   selectDistrict: (district: District | null) => void;
   setZoomLevel: (zoom: number) => void;
+  setFullyVisibleStateCount: (count: number) => void;
   setColourMode: (mode: 'sentiment' | 'party') => void;
   setMapStyle: (style: 'political' | 'satellite' | 'hybrid') => void;
   togglePanel: (open?: boolean) => void;

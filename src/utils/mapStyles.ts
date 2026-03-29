@@ -6,14 +6,71 @@ import { HEAT_COLOURS } from '../types';
 import type { HeatColourKey, State } from '../types';
 import partiesData from '../data/parties.json';
 
+// ═══════════════════════════════════════════════════════════
+// 10-STOP HEAT COLOUR SPECTRUM
+// Perceptual gradient from ice blue (0-10) to crisis violet (91-100)
+// ═══════════════════════════════════════════════════════════
+
+interface HeatColourStop {
+  maxScore: number;
+  hex: string;
+  glow: string;
+  label: string;
+}
+
+export const HEAT_SPECTRUM: HeatColourStop[] = [
+  { maxScore: 10, hex: '#00E5FF', glow: '#00E5FF55', label: 'Ice Blue' },
+  { maxScore: 20, hex: '#00FF88', glow: '#00FF8855', label: 'Emerald' },
+  { maxScore: 30, hex: '#7BFF5E', glow: '#7BFF5E55', label: 'Lime' },
+  { maxScore: 40, hex: '#C8FF00', glow: '#C8FF0055', label: 'Yellow-Green' },
+  { maxScore: 50, hex: '#FFE600', glow: '#FFE60055', label: 'Golden Yellow' },
+  { maxScore: 60, hex: '#FFB800', glow: '#FFB80055', label: 'Amber' },
+  { maxScore: 70, hex: '#FF7A00', glow: '#FF7A0055', label: 'Burnt Orange' },
+  { maxScore: 80, hex: '#FF3D00', glow: '#FF3D0055', label: 'Vermillion' },
+  { maxScore: 90, hex: '#FF0033', glow: '#FF003355', label: 'Crimson' },
+  { maxScore: 100, hex: '#CC00FF', glow: '#CC00FF55', label: 'Crisis Violet' },
+];
+
+// Special override colours (not score-based)
+export const ELECTION_COLOUR = { hex: '#4A9EFF', glow: '#4A9EFF55', label: 'Election Blue' };
+export const DISPUTED_COLOUR = { hex: '#A855F7', glow: '#A855F755', label: 'Disputed Purple' };
+
+interface HeatColourResult {
+  hex: string;
+  glow: string;
+  label: string;
+}
+
+interface HeatColourFlags {
+  isElection?: boolean;
+  isDisputed?: boolean;
+}
+
 /**
- * Get the border colour and glow for a given heat score
+ * Get the border colour and glow for a given heat score (0-100)
+ * Uses 10-stop perceptual gradient spectrum
+ * Supports special override flags for election mode and disputed territories
  */
-export function getHeatColour(score: number): { hex: string; glow: string; label: string } {
-  if (score >= 75) return { ...HEAT_COLOURS.red, hex: HEAT_COLOURS.red.hex, glow: HEAT_COLOURS.red.glow };
-  if (score >= 60) return { ...HEAT_COLOURS.orange, hex: HEAT_COLOURS.orange.hex, glow: HEAT_COLOURS.orange.glow };
-  if (score >= 40) return { ...HEAT_COLOURS.amber, hex: HEAT_COLOURS.amber.hex, glow: HEAT_COLOURS.amber.glow };
-  return { ...HEAT_COLOURS.green, hex: HEAT_COLOURS.green.hex, glow: HEAT_COLOURS.green.glow };
+export function getHeatColour(
+  score: number,
+  flags?: HeatColourFlags
+): HeatColourResult {
+  // Check override flags first
+  if (flags?.isElection) {
+    return ELECTION_COLOUR;
+  }
+  if (flags?.isDisputed) {
+    return DISPUTED_COLOUR;
+  }
+
+  // Clamp score to 0-100 range
+  const clampedScore = Math.max(0, Math.min(100, score));
+
+  // Find the first spectrum entry where score <= maxScore
+  const stop = HEAT_SPECTRUM.find((s) => clampedScore <= s.maxScore);
+
+  // Return the matched stop or fallback to the highest (Crisis Violet)
+  return stop || HEAT_SPECTRUM[HEAT_SPECTRUM.length - 1];
 }
 
 /**
@@ -44,6 +101,7 @@ export function getPartyInfo(partyId: string) {
 
 /**
  * Build a MapLibre style expression for border colours based on state data
+ * Uses 10-stop perceptual gradient spectrum
  */
 export function buildBorderColourExpression(
   states: State[],
@@ -59,13 +117,45 @@ export function buildBorderColourExpression(
     return cases as maplibregl.ExpressionSpecification;
   }
 
-  // Sentiment mode: use heat_colour from state data
+  // Sentiment mode: use heat_score for 10-stop gradient
   const cases: (string | maplibregl.ExpressionSpecification)[] = ['match', ['get', 'st_nm']];
   states.forEach((state) => {
-    const colour = getHeatColourByKey(state.heat_colour);
+    // Check for special flags
+    const isElection = state.heat_colour === 'blue';
+    const isDisputed = state.heat_colour === 'purple';
+    const colour = getHeatColour(state.heat_score, { isElection, isDisputed });
     cases.push(state.geo_name, colour.hex);
   });
   cases.push('#888888'); // default
+  return cases as maplibregl.ExpressionSpecification;
+}
+
+/**
+ * Build a MapLibre style expression for glow colours
+ */
+export function buildGlowColourExpression(
+  states: State[],
+  mode: 'sentiment' | 'party' = 'sentiment'
+): maplibregl.ExpressionSpecification {
+  if (mode === 'party') {
+    const cases: (string | maplibregl.ExpressionSpecification)[] = ['match', ['get', 'st_nm']];
+    states.forEach((state) => {
+      const partyColour = getPartyColour(state.ruling_party);
+      cases.push(state.geo_name, partyColour + '66');
+    });
+    cases.push('#88888844'); // default
+    return cases as maplibregl.ExpressionSpecification;
+  }
+
+  // Sentiment mode: use heat_score for 10-stop gradient glow
+  const cases: (string | maplibregl.ExpressionSpecification)[] = ['match', ['get', 'st_nm']];
+  states.forEach((state) => {
+    const isElection = state.heat_colour === 'blue';
+    const isDisputed = state.heat_colour === 'purple';
+    const colour = getHeatColour(state.heat_score, { isElection, isDisputed });
+    cases.push(state.geo_name, colour.glow);
+  });
+  cases.push('#88888844'); // default
   return cases as maplibregl.ExpressionSpecification;
 }
 
@@ -86,9 +176,12 @@ export function buildFillColourExpression(
     return cases as maplibregl.ExpressionSpecification;
   }
 
+  // Sentiment mode: use heat_score for 10-stop gradient
   const cases: (string | maplibregl.ExpressionSpecification)[] = ['match', ['get', 'st_nm']];
   states.forEach((state) => {
-    const colour = getHeatColourByKey(state.heat_colour);
+    const isElection = state.heat_colour === 'blue';
+    const isDisputed = state.heat_colour === 'purple';
+    const colour = getHeatColour(state.heat_score, { isElection, isDisputed });
     cases.push(state.geo_name, colour.hex);
   });
   cases.push('#888888');

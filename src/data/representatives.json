@@ -1,0 +1,123 @@
+[
+  {
+    "id": "rep-an-cm",
+    "name": "N. Chandrababu Naidu",
+    "name_hi": "एन. चंद्रबाबू नायडू",
+    "photo_url": null,
+    "party_id": "TDP",
+    "designation": "CM",
+    "constituency": "Kuppam",
+    "state_id": "an",
+    "term_start": 2024
+  },
+  {
+    "id": "rep-as-cm",
+    "name": "Himanta Biswa Sarma",
+    "name_hi": "हिमंत बिस्वा सरमा",
+    "photo_url": null,
+    "party_id": "BJP",
+    "designation": "CM",
+    "constituency": "Jalukbari",
+    "state_id": "as",
+    "term_start": 2021
+  },
+  {
+    "id": "rep-br-cm",
+    "name": "Nitish Kumar",
+    "name_hi": "नीतीश कुमार",
+    "photo_url": null,
+    "party_id": "JD(U)",
+    "designation": "CM",
+    "constituency": "Harnaut",
+    "state_id": "br",
+    "term_start": 2020
+  },
+  {
+    "id": "rep-dl-cm",
+    "name": "Atishi Marlena",
+    "name_hi": "आतिशी मार्लेना",
+    "photo_url": null,
+    "party_id": "AAP",
+    "designation": "CM",
+    "constituency": "Kalkaji",
+    "state_id": "dl",
+    "term_start": 2024
+  },
+  {
+    "id": "rep-gj-cm",
+    "name": "Bhupendra Patel",
+    "name_hi": "भूपेन्द्र पटेल",
+    "photo_url": null,
+    "party_id": "BJP",
+    "designation": "CM",
+    "constituency": "Ghatlodia",
+    "state_id": "gj",
+    "term_start": 2021
+  },
+  {
+    "id": "rep-ka-cm",
+    "name": "Siddaramaiah",
+    "name_hi": "सिद्धारमैय्या",
+    "photo_url": null,
+    "party_id": "INC",
+    "designation": "CM",
+    "constituency": "Varuna",
+    "state_id": "ka",
+    "term_start": 2023
+  },
+  {
+    "id": "rep-mh-cm",
+    "name": "Devendra Fadnavis",
+    "name_hi": "देवेंद्र फडणवीस",
+    "photo_url": null,
+    "party_id": "BJP",
+    "designation": "CM",
+    "constituency": "Nagpur South West",
+    "state_id": "mh",
+    "term_start": 2024
+  },
+  {
+    "id": "rep-tg-cm",
+    "name": "A. Revanth Reddy",
+    "name_hi": "ए. रेवंत रेड्डी",
+    "photo_url": null,
+    "party_id": "INC",
+    "designation": "CM",
+    "constituency": "Kodangal",
+    "state_id": "tg",
+    "term_start": 2023
+  },
+  {
+    "id": "rep-tn-cm",
+    "name": "M. K. Stalin",
+    "name_hi": "एम. के. स्टालिन",
+    "photo_url": null,
+    "party_id": "DMK",
+    "designation": "CM",
+    "constituency": "Kolathur",
+    "state_id": "tn",
+    "term_start": 2021
+  },
+  {
+    "id": "rep-up-cm",
+    "name": "Yogi Adityanath",
+    "name_hi": "योगी आदित्यनाथ",
+    "photo_url": null,
+    "party_id": "BJP",
+    "designation": "CM",
+    "constituency": "Gorakhpur",
+    "state_id": "up",
+    "term_start": 2017
+  },
+  {
+    "id": "rep-wb-cm",
+    "name": "Mamata Banerjee",
+    "name_hi": "ममता बनर्जी",
+    "photo_url": null,
+    "party_id": "AITC",
+    "designation": "CM",
+    "constituency": "Bhabanipur",
+    "state_id": "wb",
+    "term_start": 2011
+  }
+]

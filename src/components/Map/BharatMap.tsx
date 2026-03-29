@@ -6,9 +6,10 @@
 import { useEffect, useRef, useCallback } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import { bbox } from '@turf/bbox';
 import { useStore } from '../../store/useStore';
 import statesData from '../../data/states.json';
-import { buildBorderColourExpression, buildFillColourExpression } from '../../utils/mapStyles';
+import { buildBorderColourExpression, buildFillColourExpression, buildGlowColourExpression, getHeatColour } from '../../utils/mapStyles';
 import type { State } from '../../types';
 import { INDIA_CENTER, INDIA_ZOOM } from '../../types';
 
@@ -92,6 +93,131 @@ export default function BharatMap() {
       className: 'state-tooltip',
       offset: [0, -8],
     });
+
+    // ═══════════════════════════════════════════════════════════
+    // District Visibility Logic (Smart Zoom-Aware)
+    // Show districts only when < 4 full states are visible
+    // ═══════════════════════════════════════════════════════════
+    const evaluateDistrictVisibility = () => {
+      if (!map.isStyleLoaded()) return;
+
+      const bounds = map.getBounds();
+      const zoom = map.getZoom();
+
+      // Fetch state features from the source
+      const stateSource = map.getSource('india-states') as maplibregl.GeoJSONSource;
+      if (!stateSource) return;
+
+      // We need to count how many states are fully visible
+      // A state is "fully visible" if all corners of its bounding box are within viewport
+      let fullyVisibleCount = 0;
+
+      // We'll use the state features from the source
+      // Since we can't directly access features from GeoJSON source in MapLibre,
+      // we'll use querySourceFeatures as a workaround
+      try {
+        const features = map.querySourceFeatures('india-states');
+        const uniqueStates = new Map();
+
+        features.forEach((feature) => {
+          const stateName = feature.properties?.st_nm;
+          if (!stateName || uniqueStates.has(stateName)) return;
+
+          uniqueStates.set(stateName, feature);
+        });
+
+        uniqueStates.forEach((feature) => {
+          if (!feature.geometry) return;
+          
+          try {
+            const featureBbox = bbox(feature);
+            const [minLng, minLat, maxLng, maxLat] = featureBbox;
+
+            // Check if all 4 corners of the bbox are within the viewport
+            const westOK = minLng >= bounds.getWest();
+            const southOK = minLat >= bounds.getSouth();
+            const eastOK = maxLng <= bounds.getEast();
+            const northOK = maxLat <= bounds.getNorth();
+
+            if (westOK && southOK && eastOK && northOK) {
+              fullyVisibleCount++;
+            }
+          } catch (e) {
+            // Skip features that can't be processed
+          }
+        });
+      } catch (e) {
+        // Fallback: use zoom level only
+        const shouldShow = zoom >= 6.5;
+        updateDistrictLayerVisibility(shouldShow);
+        useStore.getState().setFullyVisibleStateCount(shouldShow ? 0 : 999);
+        return;
+      }
+
+      // PRIMARY CONDITION: If >= 4 full states visible, hide districts
+      // SECONDARY CONDITION: Fallback to zoom level if ambiguous
+      let shouldShowDistricts = false;
+      
+      if (fullyVisibleCount === 0) {
+        // No full states visible (edge case) - use zoom fallback
+        shouldShowDistricts = zoom >= 6.5;
+      } else {
+        // Use state count as primary gate
+        shouldShowDistricts = fullyVisibleCount < 4;
+      }
+
+      // Update store
+      useStore.getState().setFullyVisibleStateCount(fullyVisibleCount);
+
+      // Log in development
+      if (import.meta.env.DEV) {
+        console.log(`[District Visibility] States visible: ${fullyVisibleCount}, Zoom: ${zoom.toFixed(2)}, Districts: ${shouldShowDistricts ? 'SHOW' : 'HIDE'}`);
+      }
+
+      // Update layer visibility
+      updateDistrictLayerVisibility(shouldShowDistricts);
+    };
+
+    const updateDistrictLayerVisibility = (shouldShow: boolean) => {
+      if (!map.isStyleLoaded()) return;
+
+      const opacity = shouldShow ? 1 : 0;
+      const layersToToggle = [
+        'districts-fill',
+        'districts-border-glow',
+        'districts-border',
+        'districts-labels',
+      ];
+
+      layersToToggle.forEach((layerId) => {
+        if (map.getLayer(layerId)) {
+          // Set opacity with transition
+          const layerType = map.getLayer(layerId)?.type;
+          
+          if (layerType === 'fill') {
+            map.setPaintProperty(layerId, 'fill-opacity', shouldShow ? 
+              ['interpolate', ['linear'], ['zoom'], 6.5, 0, 7.5, 0.3, 8.5, 0.5] : 0
+            );
+          } else if (layerType === 'line') {
+            map.setPaintProperty(layerId, 'line-opacity', shouldShow ? 
+              (layerId.includes('glow') ? 
+                ['interpolate', ['linear'], ['zoom'], 6.5, 0, 7, 0, 7.5, 0.15, 8, 0.3, 9, 0.4] :
+                ['interpolate', ['linear'], ['zoom'], 6.5, 0, 7, 0, 7.5, 0.3, 8, 0.5, 9, 0.65]
+              ) : 0
+            );
+          } else if (layerType === 'symbol') {
+            map.setPaintProperty(layerId, 'text-opacity', shouldShow ? 
+              ['interpolate', ['linear'], ['zoom'], 7, 0, 7.5, 0, 8, 0.4, 8.5, 0.7, 9, 0.85] : 0
+            );
+          }
+        }
+      });
+    };
+
+    // Wire up the visibility evaluator to map events
+    const onMapMove = () => {
+      evaluateDistrictVisibility();
+    };
 
     map.on('load', () => {
       // ═══════════════════════════════════════════════════════
@@ -195,23 +321,23 @@ export default function BharatMap() {
         type: 'line',
         source: 'india-states',
         paint: {
-          'line-color': buildBorderColourExpression(typedStates, activeColourMode),
+          'line-color': buildGlowColourExpression(typedStates, activeColourMode),
           'line-width': [
             'interpolate', ['linear'], ['zoom'],
-            4, 3,
-            6, 5,
-            8, 3,
+            4, 6,
+            6, 8,
+            8, 6,
           ],
-          'line-blur': 4,
+          'line-blur': 6,
           'line-opacity': [
             'interpolate', ['linear'], ['zoom'],
             3, 0,
             4.5, 0,
-            5, 0.2,
-            6, 0.4,
-            7.5, 0.3,
-            9, 0.1,
-            10, 0.05,
+            5, 0.3,
+            6, 0.5,
+            7.5, 0.4,
+            9, 0.15,
+            10, 0.08,
           ],
         },
       });
@@ -387,7 +513,16 @@ export default function BharatMap() {
           ],
         },
       });
+
+      // Evaluate district visibility after all layers are added
+      setTimeout(() => {
+        evaluateDistrictVisibility();
+      }, 500);
     });
+
+    // Wire district visibility to map movement and zoom
+    map.on('moveend', onMapMove);
+    map.on('zoomend', onMapMove);
 
     // ─── Hover interactions (state-level) ───
     let hoveredId: number | null = null;
@@ -416,12 +551,15 @@ export default function BharatMap() {
 
         // Show tooltip
         if (stateInfo && popupRef.current) {
+          const isElection = stateInfo.heat_colour === 'blue';
+          const isDisputed = stateInfo.heat_colour === 'purple';
+          const heatColour = getHeatColour(stateInfo.heat_score, { isElection, isDisputed });
           const html = `
             <div class="state-tooltip-name">${stateInfo.name}</div>
             <div class="state-tooltip-meta">${stateInfo.capital} · ${stateInfo.type === 'ut' ? 'Union Territory' : 'State'}</div>
             <div class="state-tooltip-heat">
-              <span class="state-tooltip-heat-dot" style="background:${getHeatHex(stateInfo.heat_colour)}"></span>
-              <span class="state-tooltip-heat-label" style="color:${getHeatHex(stateInfo.heat_colour)}">${stateInfo.heat_colour.toUpperCase()} · ${stateInfo.heat_score}</span>
+              <span class="state-tooltip-heat-dot" style="background:${heatColour.hex}"></span>
+              <span class="state-tooltip-heat-label" style="color:${heatColour.hex}">${heatColour.label.toUpperCase()} · ${stateInfo.heat_score}</span>
             </div>
           `;
           popupRef.current.setLngLat(e.lngLat).setHTML(html).addTo(map);
@@ -505,7 +643,7 @@ export default function BharatMap() {
         map.setPaintProperty(
           'states-border-glow',
           'line-color',
-          buildBorderColourExpression(typedStates, activeColourMode)
+          buildGlowColourExpression(typedStates, activeColourMode)
         );
       }
     } catch {
@@ -529,21 +667,4 @@ export default function BharatMap() {
   }, [selectedState]);
 
   return <div ref={mapContainer} className="map-container" id="bharat-map" />;
-}
-
-// ═══════════════════════════════════════════════════════════
-// Helpers
-// ═══════════════════════════════════════════════════════════
-
-function getHeatHex(key: string): string {
-  const map: Record<string, string> = {
-    green: '#00FF88',
-    amber: '#FFB800',
-    orange: '#FF6B00',
-    red: '#FF2D2D',
-    blue: '#4A9EFF',
-    purple: '#A855F7',
-    grey: '#888888',
-  };
-  return map[key] || '#888888';
 }

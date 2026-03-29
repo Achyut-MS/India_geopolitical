@@ -9,6 +9,7 @@ export const useStore = create<AppState>((set) => ({
   selectedState: null,
   selectedDistrict: null,
   zoomLevel: 4.5,
+  fullyVisibleStateCount: 0,
   activeColourMode: 'sentiment',
   activeMapStyle: 'political',
   isPanelOpen: false,
@@ -34,6 +35,8 @@ export const useStore = create<AppState>((set) => ({
     })),
 
   setZoomLevel: (zoom) => set({ zoomLevel: zoom }),
+
+  setFullyVisibleStateCount: (count) => set({ fullyVisibleStateCount: count }),
 
   setColourMode: (mode) => set({ activeColourMode: mode }),
 

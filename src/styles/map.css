@@ -529,6 +529,63 @@
   padding: 0 var(--space-3) var(--space-3);
   display: flex;
   flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* 10-stop gradient bar */
+.legend-gradient-bar {
+  display: flex;
+  height: 20px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-1);
+}
+
+.legend-gradient-stop {
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.legend-gradient-stop:hover {
+  transform: scaleY(1.2);
+  z-index: 1;
+}
+
+/* Labels for key stops */
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+  padding: 0 var(--space-1);
+}
+
+.legend-label-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.legend-label-value {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.legend-label-text {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Special states section */
+.legend-special {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
   gap: var(--space-1);
 }
 
@@ -545,7 +602,6 @@
   height: 12px;
   border-radius: 3px;
   flex-shrink: 0;
-  box-shadow: 0 0 6px var(--legend-glow, transparent);
 }
 
 .legend-label {
