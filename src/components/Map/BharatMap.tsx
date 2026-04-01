@@ -9,7 +9,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { bbox } from '@turf/bbox';
 import { useStore } from '../../store/useStore';
 import statesData from '../../data/states.json';
-import { buildBorderColourExpression, buildFillColourExpression, buildGlowColourExpression, getHeatColour } from '../../utils/mapStyles';
+import { buildBorderColourExpression, buildFillColourExpression, buildGlowColourExpression, buildDistrictBorderColourExpression, buildDistrictGlowColourExpression, getHeatColour } from '../../utils/mapStyles';
 import type { State } from '../../types';
 import { INDIA_CENTER, INDIA_ZOOM } from '../../types';
 
@@ -181,7 +181,6 @@ export default function BharatMap() {
     const updateDistrictLayerVisibility = (shouldShow: boolean) => {
       if (!map.isStyleLoaded()) return;
 
-      const opacity = shouldShow ? 1 : 0;
       const layersToToggle = [
         'districts-fill',
         'districts-border-glow',
@@ -434,7 +433,7 @@ export default function BharatMap() {
         type: 'line',
         source: 'india-districts',
         paint: {
-          'line-color': 'rgba(200, 210, 230, 0.25)',
+          'line-color': buildDistrictGlowColourExpression(typedStates, activeColourMode),
           'line-width': [
             'interpolate', ['linear'], ['zoom'],
             7, 1,
@@ -459,7 +458,7 @@ export default function BharatMap() {
         type: 'line',
         source: 'india-districts',
         paint: {
-          'line-color': 'rgba(180, 195, 220, 0.5)',
+          'line-color': buildDistrictBorderColourExpression(typedStates, activeColourMode),
           'line-width': [
             'interpolate', ['linear'], ['zoom'],
             7, 0.3,
@@ -644,6 +643,21 @@ export default function BharatMap() {
           'states-border-glow',
           'line-color',
           buildGlowColourExpression(typedStates, activeColourMode)
+        );
+      }
+      // Update district colours to match parent state colours
+      if (map.getLayer('districts-border')) {
+        map.setPaintProperty(
+          'districts-border',
+          'line-color',
+          buildDistrictBorderColourExpression(typedStates, activeColourMode)
+        );
+      }
+      if (map.getLayer('districts-border-glow')) {
+        map.setPaintProperty(
+          'districts-border-glow',
+          'line-color',
+          buildDistrictGlowColourExpression(typedStates, activeColourMode)
         );
       }
     } catch {

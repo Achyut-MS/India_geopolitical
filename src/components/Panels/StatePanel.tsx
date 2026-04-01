@@ -5,6 +5,7 @@
 
 import { useState, useMemo } from 'react';
 import { useStore } from '../../store/useStore';
+import { useWikipediaPhoto } from '../../hooks/useWikipediaPhoto';
 import newsData from '../../data/news-seed.json';
 import representativesData from '../../data/representatives.json';
 import { getPartyColour, getPartyInfo, getHeatColour, formatRelativeTime, getSentimentColour } from '../../utils/mapStyles';
@@ -321,7 +322,16 @@ function RepresentativeAvatar({
   badgeText,
 }: RepresentativeAvatarProps) {
   const [imageError, setImageError] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
+
+  // Fetch photo from Wikipedia if no photo_url
+  const { photoUrl: wikiPhotoUrl, loading: wikiLoading } = useWikipediaPhoto(
+    representative.name,
+    representative.photo_url,
+    true
+  );
+
+  const resolvedPhotoUrl = representative.photo_url || wikiPhotoUrl;
+  const isLoading = !representative.photo_url && wikiLoading;
 
   const sizeMap = {
     small: 44,
@@ -331,7 +341,7 @@ function RepresentativeAvatar({
   const avatarSize = sizeMap[size];
 
   const initials = getInitials(representative.name);
-  const hasPhoto = representative.photo_url && !imageError;
+  const hasPhoto = resolvedPhotoUrl && !imageError;
   const borderColor = heatColour || partyColour;
 
   return (
@@ -343,6 +353,7 @@ function RepresentativeAvatar({
           height: avatarSize,
           borderRadius: '50%',
           border: `2px solid ${borderColor}`,
+          boxShadow: `0 0 12px ${borderColor}44`,
           overflow: 'hidden',
           background: hasPhoto ? '#1A1C24' : `${partyColour}20`,
           display: 'flex',
@@ -351,35 +362,28 @@ function RepresentativeAvatar({
           position: 'relative',
         }}
       >
+        {(isLoading) && (
+          <div className="avatar-shimmer" style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 100%)',
+            backgroundSize: '200% 100%',
+            animation: 'shimmer 1.5s infinite',
+          }} />
+        )}
         {hasPhoto ? (
-          <>
-            {imageLoading && (
-              <div className="avatar-shimmer" style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 100%)',
-                backgroundSize: '200% 100%',
-                animation: 'shimmer 1.5s infinite',
-              }} />
-            )}
-            <img
-              src={representative.photo_url!}
-              alt={representative.name}
-              loading="lazy"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: imageLoading ? 'none' : 'block',
-              }}
-              onLoad={() => setImageLoading(false)}
-              onError={() => {
-                setImageError(true);
-                setImageLoading(false);
-              }}
-            />
-          </>
-        ) : (
+          <img
+            src={resolvedPhotoUrl!}
+            alt={representative.name}
+            loading="lazy"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            onError={() => setImageError(true)}
+          />
+        ) : !isLoading ? (
           <div
             className="avatar-initials"
             style={{
@@ -391,7 +395,7 @@ function RepresentativeAvatar({
           >
             {initials}
           </div>
-        )}
+        ) : null}
       </div>
       {showBadge && badgeText && (
         <div

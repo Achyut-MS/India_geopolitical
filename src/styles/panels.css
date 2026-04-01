@@ -264,6 +264,7 @@
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
@@ -485,6 +486,7 @@
       transform: translateY(100%);
       opacity: 0;
     }
+
     to {
       transform: translateY(0);
       opacity: 1;

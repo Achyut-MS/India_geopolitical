@@ -189,6 +189,106 @@ export function buildFillColourExpression(
 }
 
 /**
+ * Desaturate and darken a hex colour for district borders
+ * Returns a muted version (40% desaturated, 20% darker)
+ */
+export function muteColour(hex: string, satFactor = 0.6, brightFactor = 0.8): string {
+  // Parse hex to RGB
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  // Convert to HSL
+  const rNorm = r / 255, gNorm = g / 255, bNorm = b / 255;
+  const max = Math.max(rNorm, gNorm, bNorm), min = Math.min(rNorm, gNorm, bNorm);
+  const l = (max + min) / 2;
+  let h = 0, s = 0;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === rNorm) h = ((gNorm - bNorm) / d + (gNorm < bNorm ? 6 : 0)) / 6;
+    else if (max === gNorm) h = ((bNorm - rNorm) / d + 2) / 6;
+    else h = ((rNorm - gNorm) / d + 4) / 6;
+  }
+
+  // Apply desaturation and darkening
+  const newS = s * satFactor;
+  const newL = l * brightFactor;
+
+  // Convert back to RGB
+  const hue2rgb = (p: number, q: number, t: number) => {
+    if (t < 0) t += 1;
+    if (t > 1) t -= 1;
+    if (t < 1/6) return p + (q - p) * 6 * t;
+    if (t < 1/2) return q;
+    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+    return p;
+  };
+
+  let rOut: number, gOut: number, bOut: number;
+  if (newS === 0) {
+    rOut = gOut = bOut = newL;
+  } else {
+    const q = newL < 0.5 ? newL * (1 + newS) : newL + newS - newL * newS;
+    const p = 2 * newL - q;
+    rOut = hue2rgb(p, q, h + 1/3);
+    gOut = hue2rgb(p, q, h);
+    bOut = hue2rgb(p, q, h - 1/3);
+  }
+
+  const toHex = (n: number) => Math.round(Math.min(255, Math.max(0, n * 255))).toString(16).padStart(2, '0');
+  return `#${toHex(rOut)}${toHex(gOut)}${toHex(bOut)}`;
+}
+
+/**
+ * Build a MapLibre style expression for district border colours
+ * Districts inherit parent state heat colour but muted (desaturated + darkened)
+ */
+export function buildDistrictBorderColourExpression(
+  states: State[],
+  mode: 'sentiment' | 'party' = 'sentiment'
+): maplibregl.ExpressionSpecification {
+  const cases: (string | maplibregl.ExpressionSpecification)[] = ['match', ['get', 'st_nm']];
+  states.forEach((state) => {
+    let baseHex: string;
+    if (mode === 'party') {
+      baseHex = getPartyColour(state.ruling_party);
+    } else {
+      const isElection = state.heat_colour === 'blue';
+      const isDisputed = state.heat_colour === 'purple';
+      baseHex = getHeatColour(state.heat_score, { isElection, isDisputed }).hex;
+    }
+    cases.push(state.geo_name, muteColour(baseHex));
+  });
+  cases.push('#555555'); // default
+  return cases as maplibregl.ExpressionSpecification;
+}
+
+/**
+ * Build a MapLibre style expression for district glow colours
+ */
+export function buildDistrictGlowColourExpression(
+  states: State[],
+  mode: 'sentiment' | 'party' = 'sentiment'
+): maplibregl.ExpressionSpecification {
+  const cases: (string | maplibregl.ExpressionSpecification)[] = ['match', ['get', 'st_nm']];
+  states.forEach((state) => {
+    let baseHex: string;
+    if (mode === 'party') {
+      baseHex = getPartyColour(state.ruling_party);
+    } else {
+      const isElection = state.heat_colour === 'blue';
+      const isDisputed = state.heat_colour === 'purple';
+      baseHex = getHeatColour(state.heat_score, { isElection, isDisputed }).hex;
+    }
+    cases.push(state.geo_name, muteColour(baseHex) + '44');
+  });
+  cases.push('#55555522'); // default
+  return cases as maplibregl.ExpressionSpecification;
+}
+
+/**
  * Format relative time
  */
 export function formatRelativeTime(dateStr: string): string {
